@@ -38,4 +38,26 @@ class Api::ServiceProvidersController < Api::ApiController
     respond_with(@service_provider)
   end
 
+  def show
+    @service_provider = ServiceProvider.find(params[:id].to_i)
+    render json: @service_provider
+  end
+
+  def get_service_providers
+    query = {}
+    @service_providers = []
+    if !params[:id].blank?
+      query[:id] =  params[:id].to_i
+    end
+    if !params[:firstname].blank?
+      query[:firstname] =  params[:firstname]
+    end 
+    if !params[:lastname].blank?
+      query[:lastname] =  params[:lastname]
+    end 
+
+    @service_providers = ServiceProvider.where(query) 
+    render json: @service_providers
+  end
+
 end

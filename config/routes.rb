@@ -12,10 +12,15 @@ Rails.application.routes.draw do
   # end
 
   namespace :api, defaults: {format: :json}, constraints: { format: 'json' } do
-    resources :service_providers
+    resources :service_providers do
+      collection do
+        get :get_service_providers
+      end
+    end
   end
   # You can have the root of your site routed with "root"
   root 'service_providers#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
